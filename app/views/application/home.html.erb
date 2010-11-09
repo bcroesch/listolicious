@@ -1,0 +1,21 @@
+
+<% content_for :bar1 do %>
+	<%= select_tag :list_id, options_from_collection_for_select(@lists, 'id', 'name', @selected_list), :id => 'current_list_select' %>
+	<div id="create_new_list">
+		<%= link_to "Create New List", new_list_url, :remote => true %>
+	</div>
+<% end %>
+
+<% content_for :bar2 do %>
+	<%= form_for ListItem.new, :remote => true do |f| %>
+			<p>
+	 		<%= hidden_field_tag :list_id, @selected_list.id %>
+			<%= text_field_tag :name %>
+			<%= submit_tag 'Add' %>
+			</p>
+	<% end %>
+<% end %>
+
+<div id="list_items">
+	<%= render :partial => "list_items/list_item", :collection => @list_items %>
+</div>

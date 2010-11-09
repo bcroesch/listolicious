@@ -1,0 +1,14 @@
+<%= div_for list_item do %>
+	<div class='list-item-text <%= completed_class(list_item) %>'>
+		<%= list_item.activity.name %>
+	</div>
+	<%= item_owner_section(list_item) do %>		
+		<%= form_for list_item, :remote => true do |f| %>
+		  	<%= f.hidden_field :completed, :value => !list_item.completed %>
+		    <%= f.submit toggle_completed_text(list_item) %>
+		<% end %>
+		
+		<%= button_to "Delete", list_item_url(list_item),
+	            :confirm => "Are you sure?", :method => :delete, :remote => true %>
+	<% end %>
+<% end %>
