@@ -1,6 +1,6 @@
 <% form_for List.new, :remote => true do |f| %>
 
-    <%= f.text_field :name %>
-	<%= f.submit 'Create' %>
+    <%= f.text_field :name, :maxlength => 40 %>
+	<%= f.submit 'Create', :class => 'button blue small' %>
 
 <% end %>

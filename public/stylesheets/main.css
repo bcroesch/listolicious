@@ -1,15 +1,49 @@
 .list-item-text{
 	display:inline;
+	float:left;
+	font-size:18px;
+	max-width:525px;
 }
 
 .completed-item{
 	text-decoration: line-through;
 }
 
-.completed-item-link{
-	display:inline;
+.completed-div{
+    margin:0 5px;
+    width:110px;
+    text-align:right;
+}
+.delete-div{
+    margin:0 5px;
+    width:90px;
 }
 
+.completed-item-link{
+	display:inline;
+	float:right;
+}
+
+.left{
+    float:left;
+}
+
+.right{
+    float:right;
+}
+
+.list_item{
+    padding:10px 0px;
+    border-bottom:1px solid #CCC;
+}
+
+.clear{
+    clear:both;
+}
+
+#list_items{
+    width:750px;
+}
 /*
 	project: web application template
 	author: luka cvrk (www.solucija.com)
@@ -31,24 +65,288 @@ body { margin: 50px 0 0; background: #fff url(../images/bg.gif) repeat-x; font: 
 .wrap { width: 900px; margin: 0 auto; }
  
 #header { width: 900px; height: 50px; margin: 0 auto; }
-	#menu  { float: right; padding: 6px 0 0 0; list-style: none; }
-		#menu li { display: inline; }
-		#menu a { display: block; float: left; margin-left: 30px; padding: 7px; text-decoration: none; font-size: 13px; color: #000000; }
-		#menu a:hover { color: #000; border-bottom: 2px solid #ccc; }
-		#menu .active a { border-bottom: 2px solid #C70012; color: #9D2900;}
  
 #bar1 { clear: both; height: 85px; background: #fff url(../images/teaserbg.jpg) repeat-x; }
-	.box { float: left; padding: 66px 0 0; width: 480px; color: #C7E3EE; }
-	#image { float: right; width: 388px; position: relative; top: 16px; background: url(../images/logotype.jpg) no-repeat top right; height: 258px; }
-	
-#bar2 { height: 40px; margin: 0 0 30px; padding: 8px 0 0 0; background-color:#618B58; }
-	.step { cursor: pointer; color: #FAFDDD; padding: 4px 0 0 11px; margin: 0 35px 0 0; font-size: 1.4em; float: left; text-align: center; background: url(../images/step.gif) no-repeat; height: 30px; }
-	.step a { color: #fff; margin: 0 10px 0 0; }
-	
-.col { float: left; width: 276px; margin: 0 30px 16px 0; }
-	.last { float: right; margin: 0; }
-	.info { border: 1px solid #e0e0e0; background: #f4f4f4; padding: 7px; }
+.box { float: left; padding: 42px 0 0; width: 870px; color: #C7E3EE; }
+#name { 
+    height:26px;
+    font-size:18px;
+    width:350px;
+}
+#list_name{
+    height:26px;
+    font-size:18px;
+    width:200px;
+}
 
-#footer { clear: both; width: 900px; margin: 0 auto; padding: 15px; border-top: 1px solid #e0e0e0; background: #fff url(../images/small_logotype.jpg) no-repeat right 13px; }	
+#bar2 { height: 40px; margin: 0 0 30px; padding: 8px 0 0 0; background-color:#618B58; }
+
+#footer { clear: both; width: 900px; margin:25px auto 5px auto; padding: 15px; border-top: 1px solid #e0e0e0; background: #fff url(../images/small_logotype.jpg) no-repeat right 13px; }	
 	#footer .right { float: right; margin: 0 55px 0 0; }
 	#footer a { color: #808080; font-weight: bold; }
+	
+	
+	
+/* Styles for custom select box */
+#page{
+	width:230px;
+	margin:100px auto;
+}
+
+#page h1{
+	font-weight:normal;
+	text-indent:-99999px;
+	overflow:hidden;
+	background:url('../images/your_product.png') no-repeat;
+	width:230px;
+	height:36px;
+}
+
+#page form{
+	margin:20px auto;
+	width:200px;
+}
+
+.tzSelect{
+	/* This is the container of the new select element */
+    margin-right:15px;
+	height:34px;
+	display:inline-block;
+	min-width:200px;
+	position:relative;
+
+	/* Preloading the background image for the dropdown */
+	background:url("../images/dropdown_slice.png") no-repeat -99999px;
+}
+
+.tzSelect .selectBox{
+	position:absolute;
+
+	height:100%;
+	width:315px;
+
+	/* Font settings */
+
+	font:13px/34px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	text-align:center;
+	text-shadow:1px 1px 0 #EEEEEE;
+	color:#666666;
+
+	/* Using CSS3 multiple backgrounds and a fallback */
+
+	background:url('../images/select_slice.png') repeat-x #ddd;
+	background-image:url('../images/select_slice.png'),url('../images/select_slice.png'),url('../images/select_slice.png'),url('../images/select_slice.png');
+	background-position:0 -136px, right -204px, 50% -68px, 0 0;
+	background-repeat: no-repeat, no-repeat, no-repeat, repeat-x;
+
+	cursor:pointer;
+
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	border-radius:3px;
+}
+
+.tzSelect .selectBox:hover,
+.tzSelect .selectBox.expanded{
+	background-position:0 -170px, right -238px, 50% -102px, 0 -34px;
+	color:#2c5667;
+	text-shadow:1px 1px 0 #9bc2d0;
+}
+
+.tzSelect .dropDown{
+	position:absolute;
+	top:40px;
+	left:0;
+	width:100%;
+	border:1px solid #32333b;
+	border-width:0 1px 1px;
+	list-style:none;
+	
+	max-height:400px;
+	overflow:auto;
+
+	-moz-box-sizing:border-box;
+	-webkit-box-sizing:border-box;
+	box-sizing:border-box;
+
+	-moz-box-shadow:0 0 4px #111;
+	-webkit-box-shadow:0 0 4px #111;
+	box-shadow:0 0 4px #111;
+}
+
+.tzSelect li{
+	height:42px;
+	cursor:pointer;
+	position:relative;
+
+	/* Again, using CSS3 multiple backgrounds */
+
+	background:url('../images/dropdown_slice.png') repeat-x #222;
+	background-image:url('../images/dropdown_slice.png'),url('../images/dropdown_slice.png'),url('../images/dropdown_slice.png');
+	background-position: 50% -85px, 0 -42px, 0 0;
+	background-repeat: no-repeat, no-repeat, repeat-x;
+}
+
+.tzSelect li:hover{
+	background-position: 50% -128px, 0 -42px, 0 0;
+}
+
+.tzSelect li span.text{
+	left:32px;
+	position:absolute;
+	top:15px;
+}
+
+.tzSelect li span.delete-list{
+	left:7px;
+	position:absolute;
+	top:15px;
+	display:none;
+}
+
+.tzSelect li i{
+	color:#999999;
+	display:block;
+	font-size:12px;
+}
+
+
+
+.button{
+    font:15px Calibri, Arial, sans-serif;
+
+    /* Overriding the default underline styling of the links */
+    text-decoration:none !important;
+    white-space:nowrap;
+
+    display:inline-block;
+    vertical-align:top;
+    position:relative;
+    cursor:pointer;
+    padding:6px 17px;
+
+    background-repeat:no-repeat;
+    
+    /* CSS3 background positioning property with multiple values. The background
+       images themselves are defined in the individual color classes */
+
+    background-position:bottom left, top right, 0 0, 0 0;
+    background-clip:border-box;
+
+    /* Applying a default border radius of 8px */
+
+    -moz-border-radius:8px;
+    -webkit-border-radius:8px;
+    border-radius:8px;
+
+    /* A 1px highlight inside of the button */
+
+    -moz-box-shadow:0 0 1px #fff inset;
+    -webkit-box-shadow:0 0 1px #fff inset;
+    box-shadow:0 0 1px #fff inset;
+
+    /* Animating the background positions with CSS3 */
+    /* Currently works only in Safari/Chrome */
+
+    -webkit-transition:background-position 1s;
+    -moz-transition:background-position 1s;
+    -o-transition:background-position 1s;
+    transition:background-position 1s;
+}
+
+.button:hover{
+    /* The first rule is a fallback, in case the browser
+       does not support multiple backgrounds
+    */
+    background-position:top left;
+    background-position:top left, bottom right, 0 0, 0 0;
+}
+
+/* The three buttons sizes */
+
+.button.big        { font-size:30px;}
+.button.medium    { font-size:17px;}
+.button.small    { font-size:14px;}
+
+/* A more rounded button */
+
+.button.rounded{
+    -moz-border-radius:4em;
+    -webkit-border-radius:4em;
+    border-radius:4em;
+}
+
+/* BlueButton */
+
+.blue.button{
+    color:#0f4b6d !important;
+
+    border:1px solid #84acc3 !important;
+
+    /* A fallback background color */
+    background-color: #48b5f2;
+
+    /* Specifying a version with gradients according to */
+
+    background-image:    url('button_bg.png'), url('button_bg.png'),
+                        -moz-radial-gradient(    center bottom, circle,
+                                                rgba(89,208,244,1) 0,rgba(89,208,244,0) 100px),
+                        -moz-linear-gradient(#4fbbf7, #3faeeb);
+
+    background-image:    url('button_bg.png'), url('button_bg.png'),
+                        -webkit-gradient(    radial, 50% 100%, 0, 50% 100%, 100,
+                                            from(rgba(89,208,244,1)), to(rgba(89,208,244,0))),
+                        -webkit-gradient(linear, 0% 0%, 0% 100%, from(#4fbbf7), to(#3faeeb));
+}
+
+.blue.button:hover{
+    background-color:#63c7fe;
+
+    background-image:    url('button_bg.png'), url('button_bg.png'),
+                        -moz-radial-gradient(    center bottom, circle,
+                                           rgba(109,217,250,1) 0,rgba(109,217,250,0) 100px),
+                        -moz-linear-gradient(#63c7fe, #58bef7);
+
+    background-image:    url('button_bg.png'), url('button_bg.png'),
+                        -webkit-gradient(    radial, 50% 100%, 0, 50% 100%, 100,
+                                            from(rgba(109,217,250,1)), to(rgba(109,217,250,0))),
+                        -webkit-gradient(linear, 0% 0%, 0% 100%, from(#63c7fe), to(#58bef7));
+}
+
+
+/* GreenButton */
+
+.green.button{
+    color:#F2F5EF !important;
+
+    border:1px solid #84acc3 !important;
+
+    /* A fallback background color */
+    background-color: #618B58;
+
+    /* Specifying a version with gradients according to */
+
+    background-image:    url('button_bg.png'), url('button_bg.png'),
+                        -moz-radial-gradient(    center bottom, circle,
+                                                rgba(97,139,88,1) 0,rgba(97,139,88,0) 100px),
+                        -moz-linear-gradient(#618B58, #7CB271);
+
+    background-image:    url('button_bg.png'), url('button_bg.png'),
+                        -webkit-gradient(    radial, 50% 100%, 0, 50% 100%, 100,
+                                            from(rgba(97,139,88,1)), to(rgba(97,139,88,0))),
+                        -webkit-gradient(linear, 0% 0%, 0% 100%, from(#618B58), to(#7CB271));
+}
+
+.green.button:hover{
+    background-color:#7CB271;
+
+    background-image:    url('button_bg.png'), url('button_bg.png'),
+                        -moz-radial-gradient(    center bottom, circle,
+                                           rgba(124,178,113,1) 0,rgba(124,178,113,0) 100px),
+                        -moz-linear-gradient(#7CB271, #618B58);
+
+    background-image:    url('button_bg.png'), url('button_bg.png'),
+                        -webkit-gradient(    radial, 50% 100%, 0, 50% 100%, 100,
+                                            from(rgba(124,178,113,1)), to(rgba(124,178,113,0))),
+                        -webkit-gradient(linear, 0% 0%, 0% 100%, from(#7CB271), to(#618B58));
+}

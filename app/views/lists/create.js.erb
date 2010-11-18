@@ -3,6 +3,8 @@ $("select#current_list_select")
         .val(<%=@list.id%>)
         .trigger("change");
         
-$("#create_new_list").html('<%= link_to "Create New List", new_list_url, :remote => true %>)
+$(".selectBox").html("<%= @list.name %>");
+        
+$("#create_new_list").html('<%= link_to "Create New List", new_list_url, :remote => true, :class => "button blue medium" %>');
         
 

@@ -10,6 +10,6 @@ module ListItemsHelper
   end
 
   def toggle_completed_text(list_item)
-    (list_item.completed)? 'Mark not Completed' : 'Mark as Completed'
+    (list_item.completed)? 'Incomplete' : 'Complete'
   end
 end
