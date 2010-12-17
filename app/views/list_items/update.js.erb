@@ -1,2 +1,2 @@
 $("#list_item_<%= @list_item.id %>")
-    .html("<%= escape_javascript(render(:partial => 'list_item', :object => @list_item, :locals => {:list_item_counter => @list_item_count})) %>");
+    .replaceWith("<%= escape_javascript(render(:partial => 'list_item', :object => @list_item, :locals => {:list_item_counter => @list_item_count})) %>");

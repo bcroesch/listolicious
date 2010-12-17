@@ -4,8 +4,8 @@ module ListItemsHelper
   end
   
   def item_owner_section(list_item, &block)
-    if current_user.id == list_item.user_id
-      content_tag(:div, :class => 'completed-item-link', &block)
+    if current_user && current_user.id == list_item.user_id
+      content_tag(:div, :class => 'completed-item-link hide', &block)
     end
   end
 

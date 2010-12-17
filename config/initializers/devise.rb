@@ -47,11 +47,6 @@ Devise.setup do |config|
 
   # Setup a pepper to generate the encrypted password.
   config.pepper = "505cd41c1710e53fe09d52dddddaa70a7bc4416a76913b56a0f2abbbf66c0657b3b1b9d65e975624adab6436659a50367c2204afd514e61ba9b5cfbcb8a7f807"
-
-  config.oauth :facebook, '169299983097581', '06f3ceb0a59c331cf358a83c15aaf289',
-      :site              => 'https://graph.facebook.com',
-      :authorize_path    => '/oauth/authorize',
-      :access_token_path => '/oauth/access_token'
       
   # ==> Configuration for :confirmable
   # The time you want to give your user to confirm his account. During this time

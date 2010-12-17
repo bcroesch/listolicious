@@ -4,12 +4,29 @@
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<meta name="description" content="Web Application" />
 	<meta name="keywords" content="list, lists, bucket list" />
+	<link rel="shortcut icon" href="/images/favicon.ico">
 	<title>Listolicious</title>
   	<%= stylesheet_link_tag :all %>
 	<%= javascript_include_tag :defaults %>
 	<%= csrf_meta_tag %>
 </head>
 <body>
+	<div id="fb-root"></div>
+	<script>
+	  window.fbAsyncInit = function() {
+	    FB.init({appId: '169299983097581', status: true, cookie: true,
+	             xfbml: true});
+	  };
+	  (function() {
+	    var e = document.createElement('script'); e.async = true;
+	    e.src = document.location.protocol +
+	      '//connect.facebook.net/en_US/all.js';
+	    document.getElementById('fb-root').appendChild(e);
+	  }());
+	</script>
+	
+	<%= welcome_div %>
+	
 	<div id="header">
 		<h1><a href="#">Listolicious</a></h1><br />
 		<h2>A simple, easy way to keep track of all of life's lists.</h2>
@@ -31,11 +48,11 @@
 
 	<div class="wrap">
 		<% if flash[:error] != nil %>
-		   <div class="flash_error">Error: <%= flash[:error] %></div>
+		   <div class="flash error">Error: <%= flash[:error] %></div>
 		<% end %> 
 
 		<%if flash[:notice] != nil %>
-			<div class="flash_notice"><%= flash[:notice] %></div>
+			<div class="flash notice"><%= flash[:notice] %></div>
 		<% end %>
 
 		<%= yield %>
@@ -43,7 +60,7 @@
 		
 	<div id="footer">
 		<p class="right">Design: <a href="http://www.solucija.com/" title="Information Architecture and Web Design">Luka Cvrk</a> &middot; Sponsor: <a href="http://www.fool.co.uk/credit-cards/credit-cards-comparison.aspx">Credit Cards</a></p>
-		<p>&copy; Copyright 2007 <a href="#">Web Application</a> &middot; All Rights Reserved</p>
+		<p>&copy; Copyright 2010 <a href="http://benroesch.com">Ben Roesch</a> &middot; All Rights Reserved</p>
 	</div>
 </body>
 </html>

@@ -5,7 +5,7 @@
 	<%= item_owner_section(list_item) do %>	
 		<div class="right delete-div">
 			<%= button_to "Delete", list_item_url(list_item),
-		            :confirm => "Are you sure?", :method => :delete, :remote => true, :class => 'button green small' %>
+		            :confirm => "Are you sure?", :method => :delete, :remote => true, :class => 'button red small' %>
 		</div>
 		<div class="right completed-div">
 			<%= form_for list_item, :remote => true do |f| %>

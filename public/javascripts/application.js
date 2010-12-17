@@ -1,12 +1,21 @@
 // Place your application-specific JavaScript functions and classes here
 // This file is automatically included by javascript_include_tag :defaults
 $(function(){ 
+    
+    //show flash if it exists
+    $(".flash").animate({ top:0 }).delay(1200).animate({ top:-62 });
+    
+    //hide complete/delete buttons except on hover
+    $(".list_item").live("mouseover", function(){
+        $(".completed-item-link", this).removeClass("hide");
+    }).live("mouseout", function(){
+        $(".completed-item-link", this).addClass("hide");
+    });
+    
+    
     //when the user changes the selected list, load it and display
     $("select#current_list_select").change(function(){
-      var list_id = $(this).attr("value");
-      $.get('/lists/'+list_id, function(data){
-          $("input[type='hidden']#list_id").val(list_id);
-      }, "script")
+      window.location.pathname = '/lists/'+$(this).attr("value");
     });
 
 
@@ -32,17 +41,30 @@ $(function(){
         // Creating a dropdown item according to the
         // data-icon and data-html-text HTML5 attributes:
         var li = $('<li>',{
-            html:   '<span class="delete-list"><a data-remote="true" data-method="delete" href="/list/'+option.val()+'"><img src="/images/delete.png" /></a></span><span class="text">'+option.text()+'</span>'
+            html:   '<span class="text">'+option.text()+'</span>'
         });
+        
+        var deleteLink = $('<span class="delete-list"></span>')
+                            .append('<a data-method="delete" data-confirm="Are you sure you want to delete this list?" href="/lists/'+option.val()+'?current_list='+select.val()+'"><img src="/images/delete.png" /></a>');
+                            /*.click(function(event){
+                                var el = $("a", this);
+                                if (confirm(el.attr('data-confirm'))) {
+                                    el.callRemote();
+                                    event.preventDefault();
+                                }
+                                return false;
+                            });*/
+                            
+        li.prepend(deleteLink);
 
-        li.click(function(){
+        li.click(function(event){
             selectBox.html(option.text());
             dropDown.trigger('hide');
             // When a click occurs, we are also reflecting
             // the change on the original select element:
             select.val(option.val());
             select.trigger("change");
-            return false;
+            //return false;
         }).mouseover(function(){
             $('span.delete-list', this).css({display: 'block'});
         }).mouseout(function(){

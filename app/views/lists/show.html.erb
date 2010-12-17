@@ -1,15 +1,35 @@
-<p id="notice"><%= notice %></p>
 
-<p>
-  <b>Name:</b>
-  <%= @list.name %>
-</p>
+<% content_for :bar1 do %>
 
-<p>
-  <b>User:</b>
-  <%= @list.user_id %>
-</p>
+	<% if !current_user || current_user.id != @list.user_id %>
+		<div class="left">
+			<h2 class="list-title"><%= @list.name %></h2>
+		</div>
+	<% else %>
+		<div class="left">
+			<%= select_tag :list_id, 
+					options_from_collection_for_select(@lists, 'id', 'name', @list.id), 
+					:id => 'current_list_select',
+					'data-skip' => '1' %>
+		</div>
+		<div id="create_new_list" class="left">
+			<%= link_to "Create New List", new_list_url, :remote => true, :class => 'button blue medium' %>
+		</div>
+	<% end %>
+<% end %>
 
+<% content_for :bar2 do %>
+	<% if !current_user || current_user.id != @list.user_id %>
+		
+	<% else %>
+		<%= form_for ListItem.new, :remote => true do |f| %>
+		 		<%= hidden_field_tag :list_id, @list.id %>
+				<%= text_field_tag :name %>
+				<%= submit_tag 'Add', :class => 'button blue small' %>
+		<% end %>
+	<% end %>
+<% end %>
 
-<%= link_to 'Edit', edit_list_path(@list) %> |
-<%= link_to 'Back', lists_path %>
+<div id="list_items">
+	<%= render :partial => "list_items/list_item", :collection => @list_items %>
+</div>

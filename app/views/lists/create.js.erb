@@ -1,10 +1,13 @@
-$("select#current_list_select")
-        .append("<option value='<%=@list.id%>'><%= @list.name %></option>")
-        .val(<%=@list.id%>)
-        .trigger("change");
+if($("div#lists").length > 0){
+    $("div#lists").append('<%= escape_javascript(render :partial => "list", :object => @list) %>')
+}
+else{
+    $("select#current_list_select")
+            .append("<option value='<%=@list.id%>'><%= @list.name %></option>")
+            .val(<%=@list.id%>)
+            .trigger("change");
         
-$(".selectBox").html("<%= @list.name %>");
-        
-$("#create_new_list").html('<%= link_to "Create New List", new_list_url, :remote => true, :class => "button blue medium" %>');
-        
+    $(".selectBox").html("<%= @list.name %>");
+}
 
+$("#create_new_list").html('<%= link_to "Create New List", new_list_url, :remote => true, :class => "button blue medium" %>');

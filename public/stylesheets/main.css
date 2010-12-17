@@ -1,3 +1,63 @@
+.left{
+    float:left;
+}
+
+.right{
+    float:right;
+}
+
+.clear{
+    clear:both;
+}
+
+.hide{
+    display:none;
+}
+
+.flash{
+    position:fixed;
+    left:0;
+    top:-62px;
+    width:100%;
+    height:40px;
+    text-align:center;
+    padding-top:20px;
+    font-size:22px;
+    overflow:hidden;
+}
+
+.flash.error{
+    background-color:#FF3131;
+    border-bottom:2px solid #B90E0E;
+    color:#F3F3F3;
+}
+
+.border-right{
+    padding-right:25px;
+    margin-right:25px;
+    border-right:1px solid #CCC;
+}
+
+.welcome{
+    color:white;
+    position:absolute;
+    top:5px;
+    right:15px;
+}
+.welcome a{
+    color:#D0D0CB;
+}
+
+.omniauth-links{
+    padding-top:35px;
+}
+
+.list_item{
+    padding:10px 0px;
+    border-bottom:1px solid #CCC;
+    min-height:32px;
+}
+
 .list-item-text{
 	display:inline;
 	float:left;
@@ -20,25 +80,7 @@
 }
 
 .completed-item-link{
-	display:inline;
 	float:right;
-}
-
-.left{
-    float:left;
-}
-
-.right{
-    float:right;
-}
-
-.list_item{
-    padding:10px 0px;
-    border-bottom:1px solid #CCC;
-}
-
-.clear{
-    clear:both;
 }
 
 #list_items{
@@ -53,7 +95,7 @@
 body { margin: 50px 0 0; background: #fff url(../images/bg.gif) repeat-x; font: .74em "Trebuchet MS", Arial, Sans-Serif; color: #444; }
 	h1 { font-size: 3em; font-weight: normal; }
 	h1 a { text-decoration: none; }
-	h2 { font-size: 2em; color: #656263; font-weight: normal; margin: 0 0 .8em; }
+	h2 { font-size: 2em; color: #656263; font-weight: normal; margin: 0 0; }
 	h3 { font-size: 1.5em; border-bottom: 1px solid #eee; margin: 0 0 .8em; }
 	p  { margin: 0 0 2em 0; line-height: 1.8em; }
 	em { border-bottom: 1px dotted #fff; cursor: pointer; }
@@ -68,6 +110,11 @@ body { margin: 50px 0 0; background: #fff url(../images/bg.gif) repeat-x; font: 
  
 #bar1 { clear: both; height: 85px; background: #fff url(../images/teaserbg.jpg) repeat-x; }
 .box { float: left; padding: 42px 0 0; width: 870px; color: #C7E3EE; }
+.list-title{
+    margin:8px 0;
+    color:#C7E3EE;
+    text-decoration:underline;
+}
 #name { 
     height:26px;
     font-size:18px;
@@ -81,7 +128,7 @@ body { margin: 50px 0 0; background: #fff url(../images/bg.gif) repeat-x; font: 
 
 #bar2 { height: 40px; margin: 0 0 30px; padding: 8px 0 0 0; background-color:#618B58; }
 
-#footer { clear: both; width: 900px; margin:25px auto 5px auto; padding: 15px; border-top: 1px solid #e0e0e0; background: #fff url(../images/small_logotype.jpg) no-repeat right 13px; }	
+#footer { clear: both; width: 900px; margin:25px auto 5px auto; padding: 15px; border-top: 1px solid #e0e0e0; background-color:#fff; }	
 	#footer .right { float: right; margin: 0 55px 0 0; }
 	#footer a { color: #808080; font-weight: bold; }
 	
@@ -283,34 +330,11 @@ body { margin: 50px 0 0; background: #fff url(../images/bg.gif) repeat-x; font: 
 
     border:1px solid #84acc3 !important;
 
-    /* A fallback background color */
     background-color: #48b5f2;
-
-    /* Specifying a version with gradients according to */
-
-    background-image:    url('button_bg.png'), url('button_bg.png'),
-                        -moz-radial-gradient(    center bottom, circle,
-                                                rgba(89,208,244,1) 0,rgba(89,208,244,0) 100px),
-                        -moz-linear-gradient(#4fbbf7, #3faeeb);
-
-    background-image:    url('button_bg.png'), url('button_bg.png'),
-                        -webkit-gradient(    radial, 50% 100%, 0, 50% 100%, 100,
-                                            from(rgba(89,208,244,1)), to(rgba(89,208,244,0))),
-                        -webkit-gradient(linear, 0% 0%, 0% 100%, from(#4fbbf7), to(#3faeeb));
 }
 
 .blue.button:hover{
     background-color:#63c7fe;
-
-    background-image:    url('button_bg.png'), url('button_bg.png'),
-                        -moz-radial-gradient(    center bottom, circle,
-                                           rgba(109,217,250,1) 0,rgba(109,217,250,0) 100px),
-                        -moz-linear-gradient(#63c7fe, #58bef7);
-
-    background-image:    url('button_bg.png'), url('button_bg.png'),
-                        -webkit-gradient(    radial, 50% 100%, 0, 50% 100%, 100,
-                                            from(rgba(109,217,250,1)), to(rgba(109,217,250,0))),
-                        -webkit-gradient(linear, 0% 0%, 0% 100%, from(#63c7fe), to(#58bef7));
 }
 
 
@@ -321,32 +345,26 @@ body { margin: 50px 0 0; background: #fff url(../images/bg.gif) repeat-x; font: 
 
     border:1px solid #84acc3 !important;
 
-    /* A fallback background color */
     background-color: #618B58;
-
-    /* Specifying a version with gradients according to */
-
-    background-image:    url('button_bg.png'), url('button_bg.png'),
-                        -moz-radial-gradient(    center bottom, circle,
-                                                rgba(97,139,88,1) 0,rgba(97,139,88,0) 100px),
-                        -moz-linear-gradient(#618B58, #7CB271);
-
-    background-image:    url('button_bg.png'), url('button_bg.png'),
-                        -webkit-gradient(    radial, 50% 100%, 0, 50% 100%, 100,
-                                            from(rgba(97,139,88,1)), to(rgba(97,139,88,0))),
-                        -webkit-gradient(linear, 0% 0%, 0% 100%, from(#618B58), to(#7CB271));
 }
 
 .green.button:hover{
     background-color:#7CB271;
+}
 
-    background-image:    url('button_bg.png'), url('button_bg.png'),
-                        -moz-radial-gradient(    center bottom, circle,
-                                           rgba(124,178,113,1) 0,rgba(124,178,113,0) 100px),
-                        -moz-linear-gradient(#7CB271, #618B58);
 
-    background-image:    url('button_bg.png'), url('button_bg.png'),
-                        -webkit-gradient(    radial, 50% 100%, 0, 50% 100%, 100,
-                                            from(rgba(124,178,113,1)), to(rgba(124,178,113,0))),
-                        -webkit-gradient(linear, 0% 0%, 0% 100%, from(#7CB271), to(#618B58));
+/* RedButton */
+
+.red.button{
+    color:#F2F5EF !important;
+
+    border:1px solid #84acc3 !important;
+
+    /* A fallback background color */
+    background-color: #CB3628;
+
+}
+
+.red.button:hover{
+    background-color:#971A10;
 }

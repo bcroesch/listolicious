@@ -1,25 +1,16 @@
-<h1>Listing lists</h1>
-
-<table>
-  <tr>
-    <th>Name</th>
-    <th>User</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @lists.each do |list| %>
-  <tr>
-    <td><%= list.name %></td>
-    <td><%= list.user_id %></td>
-    <td><%= link_to 'Show', list %></td>
-    <td><%= link_to 'Edit', edit_list_path(list) %></td>
-    <td><%= link_to 'Destroy', list, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
+<% content_for :bar1 do %>
+	<% if current_user %>
+		<div id="create_new_list" class="left">
+			<%= link_to "Create New List", new_list_url, :remote => true, :class => 'button blue medium' %>
+		</div>
+	<% end %>
 <% end %>
-</table>
 
-<br />
 
-<%= link_to 'New List', new_list_path %>
+<% content_for :bar2 do %>
+	<h2 class="list-title">Your Lists</h2>
+<% end %>
+
+<div id="lists">
+	<%= render :partial => "list", :collection => @lists %>
+</div>

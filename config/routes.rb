@@ -1,11 +1,19 @@
 Listolicious::Application.routes.draw do
+  match '/auth/:provider/callback' => 'authentications#create'
+  
+  resources :authentications
+
   resources :lists
 
   resources :list_items
 
   resources :activities
 
-  devise_for :users
+  devise_for :users, :controllers => { :registrations => 'registrations' } do
+    get "registrations/new_from_fb", :to => "registrations#new_from_fb", :as => "new_registration_from_fb"
+    post "registrations/complete_fb_registration", :to => "registrations#complete_fb_registration", :as => "complete_fb_registration"
+    post "registrations/connect_existing_account", :to => "registrations#connect_existing_account", :as => "connect_existing_account"
+  end
 
   root :to => "application#home"
   

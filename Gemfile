@@ -7,10 +7,15 @@ gem 'rails', '3.0.1'
 
 gem 'mysql2'
 gem 'mongrel'
-gem 'devise', :git => 'git://github.com/plataformatec/devise.git'
-gem 'oauth2', :git => 'git://github.com/intridea/oauth2.git'
+#gem 'devise', :git => "git://github.com/plataformatec/devise.git", :branch => 'v1.2.oauth'
+gem 'devise'#, :git => 'git://github.com/plataformatec/devise.git'
+#gem 'oauth2', :git => 'git://github.com/intridea/oauth2.git'
+#gem "oa-oauth", :require => "omniauth/oauth"
+gem "omniauth"
 
 gem 'jquery-rails'
+
+gem 'nifty-generators'
 
 # Use unicorn as the web server
 # gem 'unicorn'
@@ -33,3 +38,4 @@ gem 'jquery-rails'
 # group :development, :test do
 #   gem 'webrat'
 # end
+gem "mocha", :group => :test
