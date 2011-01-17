@@ -1,6 +1,12 @@
-<div class="list_item">
+<div class="list">
 	<div class="list-item-text">
 		<%= link_to list.name, list %>
 	</div>
+	
+	<% if current_user && list.user_id == current_user.id && !list.private %>
+		<div class="fb-share-list hide" data-list-id="<%= list.id %>">
+			<%= image_tag "/images/fbshare.png" %>
+		</div>
+	<% end %>
 </div>
 

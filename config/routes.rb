@@ -1,4 +1,6 @@
 Listolicious::Application.routes.draw do
+  resources :shares
+
   match '/auth/:provider/callback' => 'authentications#create'
   
   resources :authentications
@@ -13,6 +15,10 @@ Listolicious::Application.routes.draw do
     get "registrations/new_from_fb", :to => "registrations#new_from_fb", :as => "new_registration_from_fb"
     post "registrations/complete_fb_registration", :to => "registrations#complete_fb_registration", :as => "complete_fb_registration"
     post "registrations/connect_existing_account", :to => "registrations#connect_existing_account", :as => "connect_existing_account"
+  end
+  
+  resources :users, :only => [] do
+    resources :lists, :only => [:index]
   end
 
   root :to => "application#home"

@@ -52,7 +52,7 @@
     padding-top:35px;
 }
 
-.list_item{
+.list_item, .list{
     padding:10px 0px;
     border-bottom:1px solid #CCC;
     min-height:32px;
@@ -83,7 +83,17 @@
 	float:right;
 }
 
-#list_items{
+.fb-share-list{
+	float:right;
+	cursor:pointer;
+}
+
+#share-text{
+    width:470px;
+    height:70px;
+}
+
+#list_items, #lists{
     width:750px;
 }
 /*
@@ -96,7 +106,7 @@ body { margin: 50px 0 0; background: #fff url(../images/bg.gif) repeat-x; font: 
 	h1 { font-size: 3em; font-weight: normal; }
 	h1 a { text-decoration: none; }
 	h2 { font-size: 2em; color: #656263; font-weight: normal; margin: 0 0; }
-	h3 { font-size: 1.5em; border-bottom: 1px solid #eee; margin: 0 0 .8em; }
+	h3 { font-size: 1.5em; margin: 0 0 .8em; }
 	p  { margin: 0 0 2em 0; line-height: 1.8em; }
 	em { border-bottom: 1px dotted #fff; cursor: pointer; }
 	a { color: #9D2900; }
@@ -113,7 +123,10 @@ body { margin: 50px 0 0; background: #fff url(../images/bg.gif) repeat-x; font: 
 .list-title{
     margin:8px 0;
     color:#C7E3EE;
-    text-decoration:underline;
+}
+.list-created-by{
+    margin:8px 0;
+    color:#1E4357;
 }
 #name { 
     height:26px;
@@ -368,3 +381,21 @@ body { margin: 50px 0 0; background: #fff url(../images/bg.gif) repeat-x; font: 
 .red.button:hover{
     background-color:#971A10;
 }
+
+#private_toggle_div{
+    padding-top:8px;
+    padding-right:15px;
+    font-size:16px;
+    width:90px;
+}
+#private_toggle_div input{
+    margin-right:4px;
+}
+
+form#new_list_item{
+    display:inline;
+}
+
+#fb_icon { margin-bottom: -3px; padding:0 2px;}
+
+#create_new_list{ padding-right:5px;}

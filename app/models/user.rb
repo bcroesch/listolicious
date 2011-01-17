@@ -14,6 +14,11 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
   
+  def full_name
+    return self.email if self.first_name.nil? && self.last_name.nil?
+    return (self.first_name || "") + " " + (self.last_name || "")
+  end
+  
   def create_bucket_list
     self.lists.create(:name => "Bucket List")    
   end
@@ -22,10 +27,15 @@ class User < ActiveRecord::Base
      self.email = omniauth['extra']['user_hash']['email'] if email.blank?
      self.first_name = omniauth['user_info']['first_name']
      self.last_name = omniauth['user_info']['last_name']
+     self.fb_access_token = omniauth["credentials"]["token"]
      authentications.build(:provider => omniauth['provider'], :uid => omniauth['uid'])
    end
 
    def password_required?
      (authentications.empty? || !password.blank?) && super
+   end
+   
+   def fb_id
+      self.authentications.authentications.where(:provider => "facebook").first.uid
    end
 end

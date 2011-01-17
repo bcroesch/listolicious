@@ -17,6 +17,8 @@ gem 'jquery-rails'
 
 gem 'nifty-generators'
 
+gem 'fb_graph'
+
 # Use unicorn as the web server
 # gem 'unicorn'
 

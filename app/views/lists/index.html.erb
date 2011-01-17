@@ -1,16 +1,20 @@
 <% content_for :bar1 do %>
-	<% if current_user %>
+	<h2 class="list-title">
+		Lists Created by <%= @user.full_name %>
+	</h2>
+<% end %>
+
+
+<% content_for :bar2 do %>
+	<% if current_user && @user.id == current_user.id %>
 		<div id="create_new_list" class="left">
 			<%= link_to "Create New List", new_list_url, :remote => true, :class => 'button blue medium' %>
 		</div>
 	<% end %>
 <% end %>
 
-
-<% content_for :bar2 do %>
-	<h2 class="list-title">Your Lists</h2>
-<% end %>
-
 <div id="lists">
 	<%= render :partial => "list", :collection => @lists %>
 </div>
+
+<%= render :partial => "shares/dialog" %>

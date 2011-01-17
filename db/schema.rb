@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101208045217) do
+ActiveRecord::Schema.define(:version => 20110115203855) do
 
   create_table "activities", :force => true do |t|
     t.string   "name"
@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(:version => 20101208045217) do
     t.string   "uid"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "fb_access_token"
   end
 
   create_table "list_items", :force => true do |t|
@@ -44,6 +45,16 @@ ActiveRecord::Schema.define(:version => 20101208045217) do
     t.boolean  "private",    :default => false
   end
 
+  create_table "shares", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "service"
+    t.text     "content"
+    t.integer  "shareable_id"
+    t.string   "shareable_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "users", :force => true do |t|
     t.string   "email",                               :default => "", :null => false
     t.string   "encrypted_password",   :limit => 128, :default => "", :null => false
@@ -60,6 +71,7 @@ ActiveRecord::Schema.define(:version => 20101208045217) do
     t.datetime "updated_at"
     t.string   "first_name"
     t.string   "last_name"
+    t.string   "fb_access_token"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

@@ -4,7 +4,18 @@ class ListsController < ApplicationController
   # GET /lists
   # GET /lists.xml
   def index
-    @lists = current_user.lists.all if current_user
+    if params[:user_id] 
+      @user = User.find(params[:user_id])
+      if current_user && current_user.id == @user.id
+          @lists = current_user.lists.all
+      else
+        @lists = @user.lists.where(:private => 0)
+      end
+      redirect_to(lists_url, :flash => {:error => 'That user does not exist'}) if @user.nil?
+    elsif current_user
+      @user = current_user
+      @lists = current_user.lists.all
+    end
 
     respond_to do |format|
       format.html # index.html.erb
@@ -17,10 +28,10 @@ class ListsController < ApplicationController
     @list = List.find(params[:id])
     
     if @list.private && (!current_user || current_user.id != @list.user_id)
-      redirect_to(lists_url, :flash => {:error => 'That list is private'})
+      redirect_to(user_lists_url(@list.user), :flash => {:error => 'That list is private'})
       return
     end
-    
+
     @list_items = @list.list_items.order("created_at desc") if @list
     @lists = current_user.lists.all if current_user
 
@@ -68,19 +79,19 @@ class ListsController < ApplicationController
 
   # PUT /lists/1
   # PUT /lists/1.xml
-  # def update
-  #   @list = current_user.lists.find(params[:id])
-  # 
-  #   respond_to do |format|
-  #     if @list.update_attributes(params[:list])
-  #       format.html { redirect_to(@list, :notice => 'List was successfully updated.') }
-  #       format.xml  { head :ok }
-  #     else
-  #       format.html { render :action => "edit" }
-  #       format.xml  { render :xml => @list.errors, :status => :unprocessable_entity }
-  #     end
-  #   end
-  # end
+  def update
+    @list = current_user.lists.find(params[:id])
+    
+    respond_to do |format|
+      if @list.update_attributes(params[:list])
+        format.html { redirect_to(@list, :notice => 'List was successfully updated.') }
+        format.xml  { head :ok }
+      else
+        format.html { render :action => "edit" }
+        format.xml  { render :xml => @list.errors, :status => :unprocessable_entity }
+      end
+    end
+  end
 
   # DELETE /lists/1
   # DELETE /lists/1.xml

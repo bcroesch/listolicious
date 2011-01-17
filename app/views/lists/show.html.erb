@@ -12,24 +12,45 @@
 					:id => 'current_list_select',
 					'data-skip' => '1' %>
 		</div>
+		<div id="private_toggle_div" class="left">
+			<input type="checkbox" id="private_toggle" <%= checked(@list) %> />Private
+		</div>
 		<div id="create_new_list" class="left">
-			<%= link_to "Create New List", new_list_url, :remote => true, :class => 'button blue medium' %>
+			<span id="new_list_button_container">
+				<a id="create_new_list_button" href="#" class="button blue medium">Create New List</a>
+			</span>
+			<%= form_for List.new, :remote => true, :html => {:class => "hide"} do |f| %>
+
+			    <%= f.text_field :name, :maxlength => 40 %>
+				<%= f.submit 'Create', :class => 'button blue small' %>
+
+			<% end %>
+		</div>
+		<div class="left">
+			<a id="share_list_button" href="#" class="button blue medium"><%= image_tag "fb_icon.png", :id => 'fb_icon' %>Share List</a>
 		</div>
 	<% end %>
 <% end %>
 
 <% content_for :bar2 do %>
 	<% if !current_user || current_user.id != @list.user_id %>
-		
+		<h3 class="list-created-by">
+			Created by: <%= link_to @list.user.full_name, user_lists_url(@list.user) %>
+		</h3>
 	<% else %>
 		<%= form_for ListItem.new, :remote => true do |f| %>
 		 		<%= hidden_field_tag :list_id, @list.id %>
 				<%= text_field_tag :name %>
-				<%= submit_tag 'Add', :class => 'button blue small' %>
-		<% end %>
+				<%= submit_tag 'Add to List', :class => 'button blue small' %>
+		<% end -%>
+		&nbsp;&nbsp;
+		<input type="checkbox" id="publish_to_facebook" />
+		<label for="publish_to_facebook"><%= image_tag "fb_icon.png", :id => 'fb_icon' %>Publish to Facebook</label>
 	<% end %>
 <% end %>
 
 <div id="list_items">
 	<%= render :partial => "list_items/list_item", :collection => @list_items %>
 </div>
+
+<%= render :partial => "shares/dialog" %>

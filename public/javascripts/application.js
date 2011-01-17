@@ -1,9 +1,49 @@
 // Place your application-specific JavaScript functions and classes here
 // This file is automatically included by javascript_include_tag :defaults
 $(function(){ 
+    var loading_spinner_small = $("<img class='spinner-small' src='/images/ajax-loader-white.gif' />");
+    var show_flash = function(message){
+        $(".flash.error").text(message).animate({ top:0 }).delay(1200).animate({ top:-62 });
+    }
     
-    //show flash if it exists
-    $(".flash").animate({ top:0 }).delay(1200).animate({ top:-62 });
+    $.blockUI.defaults = { 
+        growlCSS: { 
+            width:    '120px', 
+            top:      '30px', 
+            left:     '', 
+            right:    '20px', 
+            border:   'none', 
+            padding:  '15px', 
+            opacity:   0.8, 
+            cursor:    null, 
+            color:    '#fff', 
+            backgroundColor: '#000', 
+            '-webkit-border-radius': '10px', 
+            '-moz-border-radius':    '10px'
+        } 
+    }
+    
+    //show a saving message whenever ajax requests start
+    $(document).ajaxStart(function(){
+        $.growlUI("Saving");
+    });
+    
+    //show the new list form when create new button is clicked
+    $("#create_new_list_button").click(function(){
+        $("#new_list_button_container").addClass("hide");
+        $("#new_list").removeClass("hide");
+        return false; 
+    });
+    //reverse it when they create the list
+    $("#list_submit").click(function(){
+        $("#new_list").addClass("hide");
+        $("#new_list_button_container").removeClass("hide");
+    });
+    
+    //show the flash if there is one existing on the page already
+    if($(".flash.error").text() != ""){
+        show_flash($(".flash.error").text());
+    }
     
     //hide complete/delete buttons except on hover
     $(".list_item").live("mouseover", function(){
@@ -12,10 +52,104 @@ $(function(){
         $(".completed-item-link", this).addClass("hide");
     });
     
+    $(".list").live("mouseover", function(){
+        $(".fb-share-list", this).removeClass("hide");
+    }).live("mouseout", function(){
+        $(".fb-share-list", this).addClass("hide");
+    });
+    
+    $(".fb-share-list").click(function(){
+        if(!$("#fb-access-token").length){
+            showFBConnectDialog();
+            return;
+        }
+        
+        if($("input#private_toggle").attr("checked")){
+            $("<div>Please make the list public before sharing.</div>").dialog();
+            return;
+        }
+        $(".fb-share-dialog #shareable-id").attr("value", $(this).data("list-id"));
+        $(".fb-share-dialog #shareable-type").attr("value", "List");
+        $(".fb-share-dialog #share-text").val("I created the list \""+$(this).siblings(".list-item-text").text().trim()+"\" on Listolicious.");
+        $(".fb-share-dialog").dialog({
+            height: 200,
+            width: 500
+        });
+    });
+    
+    $("#share_list_button").click(function(){
+        if(!$("#fb-access-token").length){
+            showFBConnectDialog();
+            return;
+        }
+        
+        if($("input#private_toggle").attr("checked")){
+            $("<div>Please make the list public before sharing.</div>").dialog();
+            return;
+        }
+        $(".fb-share-dialog #shareable-id").attr("value", $("select#current_list_select").attr("value"));
+        $(".fb-share-dialog #shareable-type").attr("value", "List");
+        $(".fb-share-dialog #share-text").val("I created the list \""+$("select#current_list_select option:selected").text().trim()+"\" on Listolicious.");
+        $(".fb-share-dialog").dialog({
+            height: 200,
+            width: 500
+        });
+        return false;
+    });
+    
+    
+    $("#share-submit").click(function(){
+        $("#share-submit").attr("disabled", "true");
+        $.ajax({
+            type: "POST",
+            url: '/shares',
+            data: "share[content]="+$("#share-text").val().trim()+"&share[shareable_type]="+$(".fb-share-dialog #shareable-type").attr("value")+"&share[shareable_id]="+$(".fb-share-dialog #shareable-id").attr("value"),
+            success: function (data) {
+               if(data == "success"){
+                   $(".fb-share-dialog").dialog("close");
+                   $("<div>Your list was shared to Facebook.</div>").dialog({
+                       buttons: {
+                           Ok:function() {	$( this ).dialog( "close" );}
+                       }
+                   })
+                   $("#share-submit").removeAttr("disabled");
+               } 
+               else if(data == "failure"){
+                   show_flash("Error sharing");
+                   $("#share-submit").removeAttr("disabled");
+               }
+            },
+            error: function () {
+                show_flash("Error sharing");
+            }
+        });
+        return false;
+    })
+    
+    function showFBConnectDialog(){
+        $("<div>Please connect your Facebook account first:<br /><br /><a href='/auth/facebook'><img src='/images/facebook_login.png' /></div>").dialog({ width: 330 });
+    }
     
     //when the user changes the selected list, load it and display
     $("select#current_list_select").change(function(){
       window.location.pathname = '/lists/'+$(this).attr("value");
+    });
+    
+    //when they change the public options, save it
+    $("#private_toggle").change(function(){
+        //$(this).parent().append(loading_spinner_small);
+        $.ajax({
+            type: "PUT",
+            url: '/lists/'+$("select#current_list_select").attr("value"),
+            data: "list[private]="+$(this).attr("checked"),
+            success: function (data) {
+                //$("#private_toggle_div .spinner-small").remove();
+            },
+            error: function () {
+                //$("#private_toggle_div .spinner-small").remove();
+                show_flash("Error saving your list");
+            }
+        });
     });
 
 
@@ -45,15 +179,7 @@ $(function(){
         });
         
         var deleteLink = $('<span class="delete-list"></span>')
-                            .append('<a data-method="delete" data-confirm="Are you sure you want to delete this list?" href="/lists/'+option.val()+'?current_list='+select.val()+'"><img src="/images/delete.png" /></a>');
-                            /*.click(function(event){
-                                var el = $("a", this);
-                                if (confirm(el.attr('data-confirm'))) {
-                                    el.callRemote();
-                                    event.preventDefault();
-                                }
-                                return false;
-                            });*/
+                            .append('<a data-method="delete" data-confirm="Are you sure you want to delete this list?" href="/lists/'+option.val()+'?current_list='+select.val()+'"><img src="/images/delete.png" /></a>');                            
                             
         li.prepend(deleteLink);
 
