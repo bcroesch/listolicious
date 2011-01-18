@@ -41,8 +41,37 @@
 	<div class="wrap">
 		<div class="flash error"><%= flash[:error] %></div>
 		<div class="flash notice"><%= flash[:notice] %></div>
-
-		<%= yield %>
+		<div id="main_content">
+			<%= yield %>
+		</div>
+		<div id="adsense">
+			<div>
+				<script type="text/javascript"><!--
+				google_ad_client = "ca-pub-3189710085578029";
+				/* listolicious */
+				google_ad_slot = "7844847673";
+				google_ad_width = 200;
+				google_ad_height = 200;
+				//-->
+				</script>
+				<script type="text/javascript"
+				src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+				</script>
+			</div>
+			<div>
+				<script type="text/javascript"><!--
+				google_ad_client = "ca-pub-3189710085578029";
+				/* listolicious bottom */
+				google_ad_slot = "4571154962";
+				google_ad_width = 200;
+				google_ad_height = 200;
+				//-->
+				</script>
+				<script type="text/javascript"
+				src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+				</script>
+			</div>
+		</div>
 	</div>
 		
 	<div id="footer">
