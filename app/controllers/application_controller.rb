@@ -5,6 +5,10 @@ class ApplicationController < ActionController::Base
   
   def home 
     @list = current_user.lists.order("created_at desc").first
-    redirect_to(list_url(@list))
+    if @list
+      redirect_to(list_url(@list))
+    else
+      redirect_to(user_lists_url(current_user))
+    end
   end
 end

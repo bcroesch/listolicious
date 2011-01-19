@@ -43,8 +43,9 @@
 		<div class="flash notice"><%= flash[:notice] %></div>
 		<div id="main_content">
 			<%= yield %>
+			&nbsp;
 		</div>
-		<% if current_user %>
+		<% if current_user && false %>
 			<div id="adsense">
 				<div>
 					<script type="text/javascript"><!--

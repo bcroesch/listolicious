@@ -1,5 +1,3 @@
-// Place your application-specific JavaScript functions and classes here
-// This file is automatically included by javascript_include_tag :defaults
 $(function(){ 
     var loading_spinner_small = $("<img class='spinner-small' src='/images/ajax-loader-white.gif' />");
     var show_flash = function(message){

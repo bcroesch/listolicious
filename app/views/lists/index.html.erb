@@ -8,7 +8,15 @@
 <% content_for :bar2 do %>
 	<% if current_user && @user.id == current_user.id %>
 		<div id="create_new_list" class="left">
-			<%= link_to "Create New List", new_list_url, :remote => true, :class => 'button blue medium' %>
+			<span id="new_list_button_container">
+				<a id="create_new_list_button" href="#" class="button blue medium">Create New List</a>
+			</span>
+			<%= form_for List.new, :remote => true, :html => {:class => "hide"} do |f| %>
+
+			    <%= f.text_field :name, :maxlength => 40 %>
+				<%= f.submit 'Create', :class => 'button blue small' %>
+
+			<% end %>
 		</div>
 	<% end %>
 <% end %>

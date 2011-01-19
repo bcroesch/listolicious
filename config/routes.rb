@@ -4,11 +4,11 @@ Listolicious::Application.routes.draw do
   match '/auth/:provider/callback' => 'authentications#create'
   match '/auth/failure' => 'authentications#failure'
   
-  resources :authentications
+  #resources :authentications
 
-  resources :lists
+  resources :lists, :except => [:index]
 
-  resources :list_items
+  resources :list_items, :only => [:create, :update, :destroy]
 
   #resources :activities
 
