@@ -2,6 +2,7 @@ Listolicious::Application.routes.draw do
   resources :shares
 
   match '/auth/:provider/callback' => 'authentications#create'
+  match '/auth/failure' => 'authentications#failure'
   
   resources :authentications
 
@@ -9,7 +10,7 @@ Listolicious::Application.routes.draw do
 
   resources :list_items
 
-  resources :activities
+  #resources :activities
 
   devise_for :users, :controllers => { :registrations => 'registrations' } do
     get "registrations/new_from_fb", :to => "registrations#new_from_fb", :as => "new_registration_from_fb"
