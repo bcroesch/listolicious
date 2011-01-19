@@ -44,12 +44,16 @@ class ListItemsController < ApplicationController
   def create
     @activity = Activity.find_or_create_by_name(:name => params[:name], :user_id => current_user.id)
     @list = current_user.lists.find(params[:list_id])
-    @list_item = current_user.list_items.new(:activity => @activity, :list => @list)
-    @list_item_count = current_user.list_items.where(:list => @list).size
+    
+    @list_item = current_user.list_items.new
+    @list_item.activity = @activity
+    @list_item.list = @list
+    
+    @list_item_count = current_user.list_items.where(:list_id => @list.id).size
     
     respond_to do |format|
       if @activity && @list_item.save
-        format.js
+        format.js 
       else
         format.js { render :text => 'Error adding activity' }
       end

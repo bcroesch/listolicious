@@ -4,4 +4,5 @@ class List < ActiveRecord::Base
   has_many    :activities, :through => :list_items
   has_many    :shares, :as => :shareable
   
+  attr_accessible :name, :private
 end

@@ -11,14 +11,6 @@ class RegistrationsController < Devise::RegistrationsController
     #puts @user.to_yaml
   end
   
-  def complete_fb_registration
-    
-  end
-  
-  def connect_existing_account
-    
-  end
-  
   private
   
   def build_resource(*args)

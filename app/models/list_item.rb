@@ -7,4 +7,6 @@ class ListItem < ActiveRecord::Base
   validates_presence_of     :user_id
   validates_presence_of     :list_id
   validates_presence_of     :activity_id
+  
+  attr_accessible :completed 
 end

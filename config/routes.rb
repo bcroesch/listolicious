@@ -1,12 +1,12 @@
 Listolicious::Application.routes.draw do
-  resources :shares
+  resources :shares, :only => [:create]
 
   match '/auth/:provider/callback' => 'authentications#create'
   match '/auth/failure' => 'authentications#failure'
   
   #resources :authentications
 
-  resources :lists, :except => [:index]
+  resources :lists, :except => [:index, :new, :update]
 
   resources :list_items, :only => [:create, :update, :destroy]
 
@@ -14,8 +14,6 @@ Listolicious::Application.routes.draw do
 
   devise_for :users, :controllers => { :registrations => 'registrations' } do
     get "registrations/new_from_fb", :to => "registrations#new_from_fb", :as => "new_registration_from_fb"
-    post "registrations/complete_fb_registration", :to => "registrations#complete_fb_registration", :as => "complete_fb_registration"
-    post "registrations/connect_existing_account", :to => "registrations#connect_existing_account", :as => "connect_existing_account"
   end
   
   resources :users, :only => [] do

@@ -37,40 +37,40 @@ class ListsController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.js
+      #format.js
     end
   end
 
   # GET /lists/new
   # GET /lists/new.xml
-  def new
-    @list = List.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      #format.xml  { render :xml => @list }
-      format.js
-    end
-  end
+  # def new
+  #     @list = List.new
+  # 
+  #     respond_to do |format|
+  #       format.html # new.html.erb
+  #       #format.xml  { render :xml => @list }
+  #       format.js
+  #     end
+  #   end
 
   # GET /lists/1/edit
-  def edit
-    @list = current_user.lists.find(params[:id])
-  end
+  # def edit
+  #     @list = current_user.lists.find(params[:id])
+  #   end
 
   # POST /lists
   # POST /lists.xml
   def create
-    params[:list][:user_id] = current_user.id
     @list = List.new(params[:list])
-
+    @list.user_id = current_user.id
+    
     respond_to do |format|
       if @list.save
-        format.html { redirect_to(@list, :notice => 'List was successfully created.') }
+        #format.html { redirect_to(@list, :notice => 'List was successfully created.') }
         #format.xml  { render :xml => @list, :status => :created, :location => @list }
         format.js
       else
-        format.html { render :action => "new" }
+        #format.html { render :action => "new" }
         #format.xml  { render :xml => @list.errors, :status => :unprocessable_entity }
         format.js   { render :text => "Error creating list" }
       end
