@@ -56,7 +56,7 @@ $(function(){
         $(".fb-share-list", this).addClass("hide");
     });
     
-    $(".fb-share-list").click(function(){
+    $(".fb-share-list").live("click", function(){
         if(!$("#fb-access-token").length){
             showFBConnectDialog();
             return;
@@ -107,25 +107,29 @@ $(function(){
                    $(".fb-share-dialog").dialog("close");
                    $("<div>Your list was shared to Facebook.</div>").dialog({
                        buttons: {
-                           Ok:function() {	$( this ).dialog( "close" );}
+                           Ok:function() {	$(this).dialog( "close" );}
                        }
                    })
                    $("#share-submit").removeAttr("disabled");
                } 
-               else if(data == "failure"){
-                   show_flash("Error sharing");
-                   $("#share-submit").removeAttr("disabled");
-               }
             },
-            error: function () {
+            error: function (data) {
                 show_flash("Error sharing");
+                if(data == "failure"){
+                    $("#share-submit").removeAttr("disabled");
+                }
+                else if(data = "facebook_error"){
+                    $(".fb-share-dialog").dialog("close");
+                    $("#share-submit").removeAttr("disabled");
+                    showFBConnectDialog();
+                }
             }
         });
         return false;
     })
     
     function showFBConnectDialog(){
-        $("<div>Please connect your Facebook account first:<br /><br /><a href='/auth/facebook'><img src='/images/facebook_login.png' /></div>").dialog({ width: 330 });
+        $("<div>Please connect your Facebook account:<br /><br /><a href='/auth/facebook'><img src='/images/facebook_login.png' /></div>").dialog({ width: 330 });
     }
     
     //when the user changes the selected list, load it and display
@@ -236,4 +240,7 @@ $(function(){
         dropDown.trigger('hide');
     });
   
+    //if($("#adsense").length > 0){
+    //    $("#adsense").html('<div><script type="text/javascript"><!-- google_ad_client = "ca-pub-3189710085578029"; /* listolicious */ google_ad_slot = "7844847673"; google_ad_width = 200; google_ad_height = 200; //--> </script>	<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"> </script> </div> <div> <script type="text/javascript"><!-- google_ad_client = "ca-pub-3189710085578029"; /* listolicious bottom */ google_ad_slot = "4571154962"; google_ad_width = 200; google_ad_height = 200; //--> </script> <script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"> </script> </div>');
+    //}
 });

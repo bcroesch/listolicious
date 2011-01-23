@@ -54,16 +54,23 @@ class SharesController < ApplicationController
     end
     
     if @share.shareable.user_id != current_user.id
-      render :text => "failure"
+      render :text => "failure", :status => 500
       return
     end
     
-    fb_user = FbGraph::User.me(current_user.fb_access_token)
-    fb_user.feed!(
-      :message => @share.content,
-      :link => url,
-      :name => name
-    )
+    begin
+      fb_user = FbGraph::User.me(current_user.fb_access_token)
+      fb_user.feed!(
+        :message => @share.content,
+        :link => url,
+        :name => name
+      )
+    rescue FbGraph::Exception => e
+      if e.code == 400
+        render :text => "facebook_error", :status => 500
+        return
+      end
+    end
     
     respond_to do |format|
       if @share.save
@@ -71,7 +78,7 @@ class SharesController < ApplicationController
         #format.html { redirect_to(@share, :notice => 'Share was successfully created.') }
         #format.xml  { render :xml => @share, :status => :created, :location => @share }
       else
-        format.js { render :text => "failure" }
+        format.js { render :text => "failure", :status => 500 }
         #format.html { render :action => "new" }
         #format.xml  { render :xml => @share.errors, :status => :unprocessable_entity }
       end
