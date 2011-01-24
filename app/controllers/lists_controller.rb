@@ -9,7 +9,7 @@ class ListsController < ApplicationController
       if current_user && current_user.id == @user.id
           @lists = current_user.lists.all
       else
-        @lists = @user.lists.where(:private => 0)
+        @lists = @user.lists.where(:private => false)
       end
       redirect_to(lists_url, :flash => {:error => 'That user does not exist'}) if @user.nil?
     elsif current_user
