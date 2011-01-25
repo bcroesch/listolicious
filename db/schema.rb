@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110115203855) do
+ActiveRecord::Schema.define(:version => 20110125023426) do
 
   create_table "activities", :force => true do |t|
     t.string   "name"
@@ -18,6 +18,8 @@ ActiveRecord::Schema.define(:version => 20110115203855) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "activities", ["user_id"], :name => "index_activities_on_user_id"
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id"
@@ -28,6 +30,9 @@ ActiveRecord::Schema.define(:version => 20110115203855) do
     t.string   "fb_access_token"
   end
 
+  add_index "authentications", ["provider", "uid"], :name => "index_authentications_on_provider_and_uid"
+  add_index "authentications", ["user_id"], :name => "index_authentications_on_user_id"
+
   create_table "list_items", :force => true do |t|
     t.integer  "user_id"
     t.integer  "activity_id"
@@ -37,6 +42,10 @@ ActiveRecord::Schema.define(:version => 20110115203855) do
     t.datetime "updated_at"
   end
 
+  add_index "list_items", ["activity_id"], :name => "index_list_items_on_activity_id"
+  add_index "list_items", ["list_id"], :name => "index_list_items_on_list_id"
+  add_index "list_items", ["user_id"], :name => "index_list_items_on_user_id"
+
   create_table "lists", :force => true do |t|
     t.string   "name"
     t.integer  "user_id"
@@ -44,6 +53,9 @@ ActiveRecord::Schema.define(:version => 20110115203855) do
     t.datetime "updated_at"
     t.boolean  "private",    :default => false
   end
+
+  add_index "lists", ["private"], :name => "index_lists_on_private"
+  add_index "lists", ["user_id"], :name => "index_lists_on_user_id"
 
   create_table "shares", :force => true do |t|
     t.integer  "user_id"

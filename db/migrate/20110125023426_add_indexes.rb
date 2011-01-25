@@ -1,6 +1,6 @@
 class AddIndexes < ActiveRecord::Migration
   def self.up
-    add_index :actvitiies, :user_id
+    add_index :activities, :user_id
     
     add_index :list_items, :user_id
     add_index :list_items, :activity_id
