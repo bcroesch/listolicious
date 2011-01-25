@@ -1,22 +1,24 @@
 $("#list_items").prepend("<%= escape_javascript(render :partial => 'list_item', :locals => { :list_item => @list_item, :list_item_counter => @list_item_count }) %>");
 $("#name").val("");
 
-if($("#publish_to_facebook").attr("checked") == true){
-    if(!$("#fb-access-token").length){
-        showFBConnectDialog();
-        return;
-    }
+(function(){
+    if($("#publish_to_facebook").attr("checked") == true){
+        if(!$("#fb-access-token").length){
+            showFBConnectDialog();
+            return;
+        }
     
-    if($("input#private_toggle").attr("checked")){
-        $("<div>Please make the list public before sharing.</div>").dialog();
-        return;
-    }
+        if($("input#private_toggle").attr("checked")){
+            $("<div>Please make the list public before sharing.</div>").dialog();
+            return;
+        }
     
-    $(".fb-share-dialog #shareable-id").attr("value", <%= @list_item.id %>);
-    $(".fb-share-dialog #shareable-type").attr("value", "ListItem");
-    $(".fb-share-dialog #share-text").val("I added \"<%= @activity.name %>\" to the list \""+$("select#current_list_select option:selected").text().trim()+"\" on Listolicious.");
-    $(".fb-share-dialog").dialog({
-        height: 200,
-        width: 500
-    });
-}
+        $(".fb-share-dialog #shareable-id").attr("value", <%= @list_item.id %>);
+        $(".fb-share-dialog #shareable-type").attr("value", "ListItem");
+        $(".fb-share-dialog #share-text").val("I added \"<%= @activity.name %>\" to the list \""+$("select#current_list_select option:selected").text().trim()+"\" on Listolicious.");
+        $(".fb-share-dialog").dialog({
+            height: 200,
+            width: 500
+        });
+    }
+})();
