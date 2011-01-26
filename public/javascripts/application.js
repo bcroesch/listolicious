@@ -145,10 +145,9 @@ $(function(){
             url: '/lists/'+$("select#current_list_select").attr("value"),
             data: "list[private]="+$(this).attr("checked"),
             success: function (data) {
-                //$("#private_toggle_div .spinner-small").remove();
+                window.location.pathname = '/lists/'+data;
             },
             error: function () {
-                //$("#private_toggle_div .spinner-small").remove();
                 show_flash("Error saving your list");
             }
         });
@@ -180,10 +179,37 @@ $(function(){
             html:   '<span class="text">'+option.text()+'</span>'
         });
         
-        var deleteLink = $('<span class="delete-list"></span>')
-                            .append('<a data-method="delete" data-confirm="Are you sure you want to delete this list?" href="/lists/'+option.val()+'?current_list='+select.val()+'"><img src="/images/delete.png" /></a>');                            
-                            
-        li.prepend(deleteLink);
+        var deleteSpan = $('<span class="delete-list"></span>');
+        var deleteLink = $('<a href="/lists/'+option.val()+'?current_list='+select.val()+'"><img src="/images/delete.png" /></a>')
+                                    .click(function(){
+                                        if (!confirm("Are you sure you want to delete this list?")) {
+                                            return false;
+                                        }
+                                        else{
+                                            var link = $(this),
+                                                href = link.attr('href'),
+                                                method = "delete",
+                                                form = $('<form method="post" action="'+href+'"></form>'),
+                                                metadata_input = '<input name="_method" value="'+method+'" type="hidden" />';
+
+                                            var csrf_token = $('meta[name=csrf-token]').attr('content'),
+                                                csrf_param = $('meta[name=csrf-param]').attr('content');
+                                                
+                                            if (csrf_param != null && csrf_token != null) {
+                                              metadata_input += '<input name="'+csrf_param+'" value="'+csrf_token+'" type="hidden" />';
+                                            }
+
+                                            form.hide()
+                                                .append(metadata_input)
+                                                .appendTo('body');
+
+                                            form.submit();
+                                        }
+                                        return false;
+                                    });
+        
+        deleteSpan.append(deleteLink);
+        li.prepend(deleteSpan);
 
         li.click(function(event){
             selectBox.html(option.text());
