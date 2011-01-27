@@ -99,5 +99,9 @@
 	<% if current_user && !current_user.fb_access_token.nil? && current_user.fb_access_token != "" %>
 		<div class="hide" id="fb-access-token">true</div>
 	<% end %>
+	
+	<div id="fb_connect_dialog" class="hide">Please connect your Facebook account:<br /><br />
+		<a href='/auth/facebook'><img class='fb-login-img' src='/images/facebook_login.png' />
+	</div>
 </body>
 </html>
