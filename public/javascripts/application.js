@@ -129,7 +129,7 @@ $(function(){
     })
     
     function showFBConnectDialog(){
-        $("<div>Please connect your Facebook account:<br /><br /><a href='/auth/facebook'><img src='/images/facebook_login.png' /></div>").dialog({ width: 330 });
+        $("<div>Please connect your Facebook account:<br /><br /><a href='/auth/facebook'><img class='fb-login-img' src='/images/facebook_login.png' /></div>").dialog({ width: 330 });
     }
     
     //when the user changes the selected list, load it and display

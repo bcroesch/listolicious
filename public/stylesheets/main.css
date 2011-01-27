@@ -409,3 +409,8 @@ form#new_list_item{
 #fb_icon { margin-bottom: -3px; padding:0 2px;}
 
 #create_new_list{ padding-right:5px;}
+
+img.fb-login-img{
+    width:154px;
+    height:22px;
+}
