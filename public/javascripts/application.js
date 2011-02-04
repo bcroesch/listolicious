@@ -145,7 +145,7 @@ $(function(){
             url: '/lists/'+$("select#current_list_select").attr("value"),
             data: "list[private]="+$(this).attr("checked"),
             success: function (data) {
-                window.location.pathname = '/lists/'+data;
+                
             },
             error: function () {
                 show_flash("Error saving your list");

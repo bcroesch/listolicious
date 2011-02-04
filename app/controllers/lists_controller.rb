@@ -84,11 +84,13 @@ class ListsController < ApplicationController
     
     respond_to do |format|
       if @list.update_attributes(params[:list])
-        format.html { redirect_to(@list, :notice => 'List was successfully updated.') }
-        format.xml  { head :ok }
+        # format.html { redirect_to(@list, :notice => 'List was successfully updated.') }
+        # format.xml  { head :ok }
+        format.js { render :text => "success" }
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @list.errors, :status => :unprocessable_entity }
+        # format.html { render :action => "edit" }
+        # format.xml  { render :xml => @list.errors, :status => :unprocessable_entity }
+        format.js { render :text => "failed", :status => 500 }
       end
     end
   end
