@@ -68,11 +68,11 @@ class ListsController < ApplicationController
       if @list.save
         #format.html { redirect_to(@list, :notice => 'List was successfully created.') }
         #format.xml  { render :xml => @list, :status => :created, :location => @list }
-        format.js
+        format.js { @status = "success" }
       else
         #format.html { render :action => "new" }
         #format.xml  { render :xml => @list.errors, :status => :unprocessable_entity }
-        format.js   { render :text => "Error creating list" }
+        format.js   { @status = "failure" }
       end
     end
   end
@@ -86,7 +86,7 @@ class ListsController < ApplicationController
       if @list.update_attributes(params[:list])
         # format.html { redirect_to(@list, :notice => 'List was successfully updated.') }
         # format.xml  { head :ok }
-        format.js { render :text => "success" }
+        format.js
       else
         # format.html { render :action => "edit" }
         # format.xml  { render :xml => @list.errors, :status => :unprocessable_entity }
